@@ -33,7 +33,7 @@ class _TodoListState extends State<TodoList> {
       body: ListView(children: _getItems()),
       floatingActionButton: FloatingActionButton(
           onPressed: () => _displayDialog(context),
-          tooltip: 'Add Item',
+          tooltip: 'Añadir item',
           child: Icon(Icons.add)),
     );
   }
@@ -61,10 +61,10 @@ class _TodoListState extends State<TodoList> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Add a task to your list'),
+            title: const Text('Añadir tarea'),
             content: TextField(
               controller: _textFieldController,
-              decoration: const InputDecoration(hintText: 'Enter task here'),
+              decoration: const InputDecoration(hintText: 'Nombre por defecto'),
             ),
             actions: <Widget>[
               TextButton(
