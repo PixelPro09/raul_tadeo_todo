@@ -1,3 +1,4 @@
+import 'package:raul_tadeo_todo/controlador.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -7,27 +8,29 @@ void main() {
 class Todo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: TodoList());
+    // app layout
+    return const MaterialApp(
+      home: TodoList(),
+    );
   }
 }
 
 class TodoList extends StatefulWidget {
+  const TodoList({super.key});
+
   @override
-  _TodoListState createState() => _TodoListState();
+  State<TodoList> createState() => _TodoListState();
 }
 
-
 class _TodoListState extends State<TodoList> {
-  // save data
-  final List<String> _todoList = <String>[];
-  // text field
+  final List<String> _todoList = controlador.todoList;
   final TextEditingController _textFieldController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('To-Do List')),
+      appBar: AppBar(title: const Text('Lista de quehaceres')),
       body: ListView(children: _getItems()),
-      // add items to the to-do list
       floatingActionButton: FloatingActionButton(
           onPressed: () => _displayDialog(context),
           tooltip: 'Add Item',
@@ -36,20 +39,14 @@ class _TodoListState extends State<TodoList> {
   }
 
   void _addTodoItem(String title) {
-    // Wrapping it inside a set state will notify
-    // the app that the state has changed
     setState(() {
       _todoList.add(title);
     });
     _textFieldController.clear();
   }
-
-  // this Generate list of item widgets
   Widget _buildTodoItem(String title) {
     return ListTile(title: Text(title));
   }
-
-  // display a dialog for the user to enter items
   Future<AlertDialog> _displayDialog(BuildContext context) async {
     // alter the app state to show a dialog
     return showDialog(
@@ -62,7 +59,6 @@ class _TodoListState extends State<TodoList> {
               decoration: const InputDecoration(hintText: 'Enter task here'),
             ),
             actions: <Widget>[
-              // add button
               TextButton(
                 child: const Text('ADD'),
                 onPressed: () {
@@ -70,7 +66,6 @@ class _TodoListState extends State<TodoList> {
                   _addTodoItem(_textFieldController.text);
                 },
               ),
-              // Cancel button
               TextButton(
                 child: const Text('CANCEL'),
                 onPressed: () {
@@ -79,10 +74,9 @@ class _TodoListState extends State<TodoList> {
               )
             ],
           );
-        }
-    )as Future <AlertDialog>;
+        }) as Future <AlertDialog>;
   }
-  // iterates through our todo list title
+
   List<Widget> _getItems() {
     final List<Widget> _todoWidgets = <Widget>[];
     for (String title in _todoList) {
