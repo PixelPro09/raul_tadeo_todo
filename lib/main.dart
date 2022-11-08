@@ -38,6 +38,14 @@ class _TodoListState extends State<TodoList> {
     );
   }
 
+  List<Widget> _getItems() {
+    final List<Widget> _todoWidgets = <Widget>[];
+    for (String title in _todoList) {
+      _todoWidgets.add(_buildTodoItem(title));
+    }
+    return _todoWidgets;
+  }
+
   void _addTodoItem(String title) {
     setState(() {
       _todoList.add(title);
@@ -60,14 +68,14 @@ class _TodoListState extends State<TodoList> {
             ),
             actions: <Widget>[
               TextButton(
-                child: const Text('ADD'),
+                child: const Text('Añadir'),
                 onPressed: () {
                   Navigator.of(context).pop();
                   _addTodoItem(_textFieldController.text);
                 },
               ),
               TextButton(
-                child: const Text('CANCEL'),
+                child: const Text('Cancelar'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -75,13 +83,5 @@ class _TodoListState extends State<TodoList> {
             ],
           );
         }) as Future <AlertDialog>;
-  }
-
-  List<Widget> _getItems() {
-    final List<Widget> _todoWidgets = <Widget>[];
-    for (String title in _todoList) {
-      _todoWidgets.add(_buildTodoItem(title));
-    }
-    return _todoWidgets;
   }
 }
